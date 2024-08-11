@@ -1,172 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>24/7 Expert Tech Support</title>
-    <style>
-        :root {
-            --background-color: #f0f0f0;
-            --text-color: #333;
-            --container-background: #fff;
-            --button-background: #007bff;
-            --button-hover: #0056b3;
-            --footer-color: #aaa;
-        }
-        [data-theme="dark"] {
-            --background-color: #121212;
-            --text-color: #ffffff;
-            --container-background: #1e1e1e;
-            --button-background: #1e90ff;
-            --button-hover: #4682b4;
-            --footer-color: #888;
-        }
-        body {
-            font-family: Arial, sans-serif;
-            background-color: var(--background-color);
-            color: var(--text-color);
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            transition: background-color 0.3s, color 0.3s;
-        }
-        .container {
-            background-color: var(--container-background);
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            max-width: 400px;
-            width: 100%;
-        }
-        h1 {
-            color: var(--button-background);
-            margin-bottom: 20px;
-            font-size: 24px;
-        }
-        p {
-            color: var(--footer-color);
-            margin-bottom: 30px;
-        }
-        input, textarea, select {
-            width: calc(100% - 20px);
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 16px;
-            background-color: var(--container-background);
-            color: var(--text-color);
-            transition: background-color 0.3s, color 0.3s;
-        }
-        textarea {
-            resize: none;
-        }
-        button {
-            padding: 12px 20px;
-            background-color: var(--button-background);
-            color: #fff;
-            border: none;
-            cursor: pointer;
-            border-radius: 5px;
-            font-size: 16px;
-            transition: background-color 0.3s;
-        }
-        button:hover {
-            background-color: var(--button-hover);
-        }
-        .footer {
-            margin-top: 20px;
-            font-size: 12px;
-            color: var(--footer-color);
-        }
-        .footer a {
-            color: var(--footer-color);
-            text-decoration: none;
-        }
-        .dark-mode-switch {
-            margin-top: 20px;
-            cursor: pointer;
-            font-size: 14px;
-        }
-        .video-container {
-            display: none;
-            margin-top: 20px;
-            width: 100%;
-            max-width: 1280px;
-        }
-        iframe {
-            width: 100%;
-            height: 720px;
-            border: none;
-            border-radius: 10px;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>24/7 Expert Tech Support</title>
+<style>
+body { font-family: Arial, sans-serif; text-align: center; padding: 50px; background-color: #f9f9f9; }
+form, #loading, #videoContainer { margin-top: 20px; }
+input, textarea { display: block; margin: 10px auto; padding: 10px; width: 80%; max-width: 500px; border: 1px solid #ccc; border-radius: 4px; }
+button { padding: 10px 20px; background-color: #4CAF50; color: #fff; border: none; border-radius: 4px; cursor: pointer; }
+button:hover { background-color: #45a049; }
+#loading { display: none; }
+</style>
 </head>
 <body>
-    <div class="container">
-        <h1>24/7 Expert Tech Support</h1>
-        <p>Get Immediate Help with Any Tech Issue</p>
-        <form id="supportForm">
-            <input type="text" name="name" placeholder="Your Name" required>
-            <input type="email" name="email" placeholder="Your Email" required>
-            <select name="issue" id="issueSelect" required>
-                <option value="" disabled selected>Select your issue</option>
-                <option value="internet">Internet Connectivity</option>
-                <option value="software">Software Issue</option>
-                <option value="hardware">Hardware Malfunction</option>
-                <option value="slow-performance">Slow Performance</option>
-                <option value="virus-malware">Virus/Malware</option>
-                <option value="custom">Custom Issue</option>
-            </select>
-            <textarea name="description" placeholder="Describe your issue" rows="5" required></textarea>
-            <button type="submit">Get Help Now</button>
-        </form>
-        <div class="dark-mode-switch" id="darkModeSwitch">Switch to Dark Mode</div>
-        <div class="video-container" id="videoContainer">
-            <iframe id="rickrollVideo" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Rick Astley - Never Gonna Give You Up (Official Music Video)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-        </div>
-    </div>
-
-    <div class="footer">
-        <p>Trusted by 10,000+ users | <a href="#">Privacy Policy</a></p>
-    </div>
-
-    <script>
-        document.getElementById('supportForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            // Update iframe src to include autoplay
-            const iframe = document.getElementById('rickrollVideo');
-            iframe.src = 'https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1';
-            // Show the video container
-            document.getElementById('videoContainer').style.display = 'block';
-        });
-
-        const darkModeSwitch = document.getElementById('darkModeSwitch');
-        const body = document.body;
-
-        darkModeSwitch.addEventListener('click', () => {
-            if (body.dataset.theme === "dark") {
-                body.dataset.theme = "light";
-                darkModeSwitch.textContent = "Switch to Dark Mode";
-            } else {
-                body.dataset.theme = "dark";
-                darkModeSwitch.textContent = "Switch to Light Mode";
-            }
-        });
-
-        document.getElementById('issueSelect').addEventListener('change', function() {
-            const descriptionField = document.querySelector('textarea[name="description"]');
-            if (this.value === 'custom') {
-                descriptionField.placeholder = "Please describe your custom issue in detail.";
-            } else {
-                descriptionField.placeholder = "Describe your issue";
-            }
-        });
-    </script>
+<h1>Welcome to TechFix Support</h1>
+<form id="supportForm">
+<input type="text" name="name" placeholder="Your Name" required>
+<input type="email" name="email" placeholder="Your Email" required>
+<textarea name="issue" placeholder="Describe your issue" required></textarea>
+<button type="submit">Submit</button>
+</form>
+<div id="loading">Processing your request...</div>
+<div id="videoContainer">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+</div>
+<script>
+document.getElementById('supportForm').addEventListener('submit', function(event) {
+event.preventDefault();
+document.getElementById('supportForm').style.display = 'none';
+document.getElementById('loading').style.display = 'block';
+setTimeout(function() {
+document.getElementById('loading').style.display = 'none';
+document.getElementById('videoContainer').style.display = 'block';
+}, 2000); // simulate processing delay
+});
+</script>
 </body>
 </html>
