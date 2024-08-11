@@ -1,136 +1,208 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>OS Error Detector</title>
-<style>
-body { font-family: 'Courier New', Courier, monospace; text-align: center; margin: 0; padding: 50px; background-color: #000; color: #fff; overflow: hidden; }
-#errorBox { display: none; padding: 20px; background-color: #000; border: 2px solid red; border-radius: 10px; box-shadow: 0px 0px 20px rgba(255,0,0,0.7); position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); }
-#errorScreen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: #000; }
-h1 { color: red; }
-#errorTitle { font-size: 3em; }
-#errorMessage { font-size: 1.5em; }
-.flashing { animation: flash 0.3s infinite; }
-@keyframes flash { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
-@keyframes blink { 0%, 100% { opacity: 0; } 50% { opacity: 1; } }
-.warning-icon { font-size: 4em; color: red; }
-#glitchText { animation: glitch 1s infinite linear; }
-@keyframes glitch {
-0% { text-shadow: 2px 2px #ff0000, -2px -2px #00ff00; }
-25% { text-shadow: 2px -2px #ff0000, -2px 2px #00ff00; }
-50% { text-shadow: -2px -2px #ff0000, 2px 2px #00ff00; }
-75% { text-shadow: -2px 2px #ff0000, 2px -2px #00ff00; }
-100% { text-shadow: 2px 2px #ff0000, -2px -2px #00ff00; }
-}
-.spooky { 
-    position: fixed; 
-    top: 20%; 
-    left: 50%; 
-    width: 300px; 
-    height: auto; 
-    transform: translateX(-50%); 
-    display: none; 
-    opacity: 0.7; /* semi-transparent */
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OS Error Detector</title>
+    <style>
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            text-align: center;
+            margin: 0;
+            padding: 50px;
+            background-color: #000;
+            color: #fff;
+            overflow: hidden;
+        }
+
+        #errorBox {
+            display: none;
+            padding: 20px;
+            background-color: #000;
+            border: 2px solid red;
+            border-radius: 10px;
+            box-shadow: 0px 0px 20px rgba(255, 0, 0, 0.7);
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        #errorScreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+        }
+
+        h1 {
+            color: red;
+        }
+
+        #errorTitle {
+            font-size: 3em;
+        }
+
+        #errorMessage {
+            font-size: 1.5em;
+        }
+
+        .flashing {
+            animation: flash 0.3s infinite;
+        }
+
+        @keyframes flash {
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0;
+            }
+        }
+
+        .warning-icon {
+            font-size: 4em;
+            color: red;
+        }
+
+        #glitchText {
+            animation: glitch 1s infinite linear;
+        }
+
+        @keyframes glitch {
+            0% {
+                text-shadow: 2px 2px #ff0000, -2px -2px #00ff00;
+            }
+
+            25% {
+                text-shadow: 2px -2px #ff0000, -2px 2px #00ff00;
+            }
+
+            50% {
+                text-shadow: -2px -2px #ff0000, 2px 2px #00ff00;
+            }
+
+            75% {
+text-shadow: -2px 2px #ff0000, 2px -2px #00ff00;
+            }
+
+            100% {
+                text-shadow: 2px 2px #ff0000, -2px -2px #00ff00;
+            }
+        }
+
+        .spooky {
+            position: fixed;
+            width: 300px;
+            height: auto;
+            transform: translateX(-50%);
+            display: none;
+            opacity: 0.7;
+        }
+    </style>
 </head>
+
 <body>
-<div id="errorScreen">
-<h1 class="flashing" style="margin-top: 50px;">IT'S TOO LATE</h1>
-<div id="errorBox">
-<div class="warning-icon flashing">⚠️</div>
-<h1 id="errorTitle" class="flashing">ERROR!</h1>
-<p id="errorMessage"></p>
-</div>
-<div id="glitchText">
-<p class="flashing">RUN WHILE YOU CAN.</p>
-<p class="flashing">RUN WHILE YOU CAN.</p>
-<p class="flashing">RUN WHILE YOU CAN.</p>
-</div>
-<img id="spookyImage" class="spooky" src="scary.png" alt="Spooky Image">
-<audio id="errorSound" src="beep.mp3" preload="auto"></audio>
-<audio id="backgroundNoise" src="https://www.soundjay.com/nature/sounds/wind-1.mp3" loop preload="auto"></audio>
-<audio id="creakingSound" src="creaking.mp3" loop preload="auto"></audio>
-<audio id="whisperSound" src="whis.mp3" preload="auto"></audio>
-<audio id="footstepsSound" src="footsteps.mp3" preload="auto"></audio>
-<audio id="extraSound" src="extraSound.mp3" preload="auto"></audio>
-</div>
-<script>
-// ensure beep.mp3, spooky.png, and extraSound.mp3 are correctly placed in the same directory as this html file.
+    <div id="errorScreen">
+        <h1 class="flashing" style="margin-top: 50px;">IT'S TOO LATE</h1>
+        <div id="errorBox">
+            <div class="warning-icon flashing">⚠️</div>
+            <h1 id="errorTitle" class="flashing">ERROR!</h1>
+            <p id="errorMessage"></p>
+        </div>
+        <div id="glitchText">
+            <p class="flashing">RUN WHILE YOU CAN.</p>
+            <p class="flashing">RUN WHILE YOU CAN.</p>
+            <p class="flashing">RUN WHILE YOU CAN.</p>
+        </div>
+        <img id="spookyImage" class="spooky" src="spooky.png" alt="Spooky Image">
+        <audio id="errorSound" src="beep.mp3" preload="auto"></audio>
+        <audio id="backgroundNoise" src="https://www.soundjay.com/nature/sounds/wind-1.mp3" loop preload="auto"></audio>
+        <audio id="creakingSound" src="https://www.soundjay.com/mechanical/sounds/creaking-door-1.mp3" loop preload="auto"></audio>
+        <audio id="whisperSound" src="https://www.soundjay.com/human/sounds/whisper-1.mp3" preload="auto"></audio>
+        <audio id="footstepsSound" src="https://www.soundjay.com/human/sounds/footsteps-1.mp3" preload="auto"></audio>
+        <audio id="extraSound" src="extraSound.mp3" preload="auto"></audio>
+    </div>
+    <script>
+        // ensure beep.mp3, spooky.png, and extraSound.mp3 are correctly placed in the same directory as this html file.
 
-document.body.addEventListener('click', function() {
-var userAgent = window.navigator.userAgent;
-if (userAgent.includes('Android')) {
+        document.body.addEventListener('click', function () {
+            var userAgent = window.navigator.userAgent;
+            if (userAgent.includes('Android')) {
 showError('Android Error', 'An unexpected error has occurred on your Android device. Please reboot.');
-} else if (userAgent.includes('iPhone') || userAgent.includes('iPad')) {
-showError('iOS Error', 'An unexpected error has occurred on your iOS device. Please restore using iTunes.');
-} else if (userAgent.includes('Windows')) {
-showError('Windows Error', 'A critical error has occurred on your Windows system. Please reinstall Windows.');
-} else if (userAgent.includes('Mac')) {
-showError('macOS Error', 'An unexpected error has occurred on your macOS system. Please restart your Mac.');
-} else {
-showError('Unknown OS', 'An unexpected error has occurred. Please try again.');
-}
-playErrorSound();
-playBackgroundSounds();
-playRandomSounds();
-showRandomImage();
-});
+            } else if (userAgent.includes('iPhone') || userAgent.includes('iPad')) {
+                showError('iOS Error', 'An unexpected error has occurred on your iOS device. Please restore using iTunes.');
+            } else if (userAgent.includes('Windows')) {
+                showError('Windows Error', 'A critical error has occurred on your Windows system. Please reinstall Windows.');
+            } else if (userAgent.includes('Mac')) {
+                showError('macOS Error', 'An unexpected error has occurred on your macOS system. Please restart your Mac.');
+            } else {
+                showError('Unknown OS', 'An unexpected error has occurred. Please try again.');
+            }
+            playErrorSound();
+            playBackgroundSounds();
+            playRandomSounds();
+            showRandomImage();
+        });
 
-function showError(title, message) {
-document.getElementById('errorTitle').innerText = title;
-document.getElementById('errorMessage').innerText = message;
-document.getElementById('errorBox').style.display = 'block';
-}
+        function showError(title, message) {
+            document.getElementById('errorTitle').innerText = title;
+            document.getElementById('errorMessage').innerText = message;
+            document.getElementById('errorBox').style.display = 'block';
+        }
 
-function playErrorSound() {
-document.getElementById('errorSound').pause();
-document.getElementById('errorSound').currentTime = 0;
-document.getElementById('errorSound').play();
-}
+        function playErrorSound() {
+            document.getElementById('errorSound').pause();
+            document.getElementById('errorSound').currentTime = 0;
+            document.getElementById('errorSound').play();
+        }
 
-function playBackgroundSounds() {
-document.getElementById('backgroundNoise').play();
-document.getElementById('creakingSound').play();
-document.getElementById('extraSound').play();
-}
+        function playBackgroundSounds() {
+            document.getElementById('backgroundNoise').play();
+            document.getElementById('creakingSound').play();
+            document.getElementById('extraSound').play();
+        }
 
-function playRandomSounds() {
-setTimeout(function() { document.getElementById('whisperSound').play(); }, Math.random() * 10000 + 5000);
-setTimeout(function() { document.getElementById('footstepsSound').play(); }, Math.random() * 10000 + 5000);
-
-setInterval(function() {
-document.getElementById('whisperSound').pause();
-document.getElementById('whisperSound').currentTime = 0;
-document.getElementById('whisperSound').play();
-}, Math.random() * 10000 + 15000);
-
-setInterval(function() {
-document.getElementById('footstepsSound').pause();
-document.getElementById('footstepsSound').currentTime = 0;
-document.getElementById('footstepsSound').play();
-}, Math.random() * 10000 + 15000);
-}
-
-function showRandomImage() {
-let img = document.getElementById('spookyImage');
-let randomLeft = Math.random() * 80 + 10; // random left position between 10% to 90%
-let randomTop = Math.random() * 80 + 10; // random top position between 10% to 90%
-img.style.left = randomLeft + '%';
-img.style.top = randomTop + '%';
-img.style.display = 'block';
-setTimeout(function() { img.style.display = 'none'; }, Math.random() * 2000 + 1000);
-setInterval(function() {
-    let randomLeft = Math.random() * 80 + 10; // random left position between 10% to 90%
-    let randomTop = Math.random() * 80 + 10; // random top position between 10% to 90%
-    img.style.left = randomLeft + '%';
-    img.style.top = randomTop + '%';
-    img.style.display = 'block';
-    setTimeout(function() { img.style.display = 'none'; }, Math.random() * 2000 + 1000);
-}, Math.random() * 10000 + 5000);
-}
-</script>
-</body>
-</html>
+        function playRandomSounds() {
+            setTimeout(function () { document.getElementById('whisperSound').play(); }, Math.random() * 10000 + 5000);
+            setTimeout(function () { document.getElementById('footstepsSound').play(); }, Math.random() * 10000 + 5000);
 []
+            setInterval(function () {
+                document.getElementById('whisperSound').pause();
+                document.getElementById('whisperSound').currentTime = 0;
+                document.getElementById('whisperSound').play();
+            }, Math.random() * 10000 + 15000);
+
+            setInterval(function () {
+                document.getElementById('footstepsSound').pause();
+                document.getElementById('footstepsSound').currentTime = 0;
+                document.getElementById('footstepsSound').play();
+            }, Math.random() * 10000 + 15000);
+        }
+
+        function showRandomImage() {
+            const img = document.getElementById('spookyImage');
+            const randomLeft = Math.random() * 90; // random left position between 0% to 90%
+            const randomTop = Math.random() * 90; // random top position between 0% to 90%
+            img.style.left = randomLeft + '%';
+            img.style.top = randomTop + '%';
+            img.style.display = 'block';
+            setTimeout(function () { img.style.display = 'none'; }, Math.random() * 2000 + 1000);
+            setInterval(function () {
+                const randomLeft = Math.random() * 90; // random left position between 0% to 90%
+                const randomTop = Math.random() * 90; // random top position between 0% to 90%
+                img.style.left = randomLeft + '%';
+                img.style.top = randomTop + '%';
+                img.style.display = 'block';
+                setTimeout(function () { img.style.display = 'none'; }, Math.random() * 2000 + 1000);
+            }, Math.random() * 10000 + 5000);
+        }
+    </script>
+</body>
+
+</html>
